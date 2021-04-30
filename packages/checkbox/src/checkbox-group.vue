@@ -71,6 +71,7 @@ export default {
       var $obj = event.target;
       var index = vModel.indexOf($obj.value);
 
+      // 如果是已选状态就加入
       if ($obj.checked) {
         if (index < 0) {
           vModel.push($obj.value);

@@ -16,7 +16,7 @@
       </span>
     </div>
     <div class="sl-tabs__tabs-content">
-      <slot></slot>
+      <slot name="content"></slot>
     </div>
   </div>
 </template>
@@ -73,9 +73,11 @@ export default {
   methods: {
     calcPaneInstances (isForceUpdate = false) {
       console.log(this.$slots);
+      console.log(this.$scopedSlots);
 
-      if (this.$slots.default) {
-        const tabSlots = this.$slots.default.filter(vnode => vnode.tag &&
+
+      if (this.$slots.content) {
+        const tabSlots = this.$slots.content.filter(vnode => vnode.tag &&
           vnode.componentOptions && vnode.componentOptions.Ctor.options.name === 'SlTabItem');
         const tabs = tabSlots.map(({ componentInstance }) => componentInstance);
 

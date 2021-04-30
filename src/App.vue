@@ -22,6 +22,23 @@
       </sl-checkbox-group-item>
     </sl-checkbox-group>
 
+    <sl-radio-group v-model="check"
+                    @change="radioChange"
+                    :data-source="checkData"
+                    class="check-group">
+      <sl-radio-group-item @checked="handleCheck"
+                           v-for="(checkData, i) in checkData"
+                           :key="i"
+                           :item="checkData">
+        <template v-slot:default="props">
+          <div :class="{'is-check': props.checked}"
+               class="btn">
+            {{props.scoped.label}}
+          </div>
+        </template>
+      </sl-radio-group-item>
+    </sl-radio-group>
+
     <!-- <sl-tabs :tabList="tabList"
              :tabIndex="tabIndex"
              @changeTab="changeTab">
@@ -37,17 +54,31 @@
             @click="handleClick">点击</button>
     <sl-tabs v-model="tabActive"
              @tab-click="tabClick">
-      <sl-tabs-item label="w "
-                    value="1">0.0</sl-tabs-item>
-      <sl-tabs-item label="q"
-                    value="2">0002</sl-tabs-item>
-      <sl-tabs-item label="r"
-                    value="3">fdsfds</sl-tabs-item>
-      <sl-tabs-item label="y"
-                    value="4">rrrr</sl-tabs-item>
-      <sl-tabs-item label="n"
-                    value="5">qqq</sl-tabs-item>
+      <template v-slot:content>
+        <div>
+          <sl-tabs-item label="w "
+                        value="1">0.0</sl-tabs-item>
+          <sl-tabs-item label="q"
+                        value="2">0002</sl-tabs-item>
+          <sl-tabs-item label="r"
+                        value="3">fdsfds</sl-tabs-item>
+          <sl-tabs-item label="y"
+                        value="4">rrrr</sl-tabs-item>
+          <sl-tabs-item label="n"
+                        value="5">qqq</sl-tabs-item>
+        </div>
+      </template>
     </sl-tabs>
+
+    <sl-radio-group v-model="checkRadio"
+                    @change="handleRadio">
+      <sl-radio-group-item :item="data"
+                           v-for="data in checkData">
+        <span style="margin: 0 15px 0 0">
+          {{data.label}}
+        </span>
+      </sl-radio-group-item>
+    </sl-radio-group>
   </div>
 </template>
 
@@ -56,6 +87,8 @@ import Vue from "vue"
 import SlButton from "../packages/button/src/button"
 import SLCheckBoxGroup from "../packages/checkbox/src/checkbox-group"
 import SLCheckBoxGroupItem from "../packages/checkbox/src/checkbox-group-item"
+import SLRadioGroup from "../packages/radio/src/radio-group"
+import SLRadioGroupItem from "../packages/radio/src/radio-group-item"
 import SLTabs from "../packages/tabs/src/tabs"
 import SLTabsItem from "../packages/tabs/src/tabs-item"
 import SLMessage from "../packages/message/src/message.vue"
@@ -67,6 +100,8 @@ export default {
     SlButton,
     "sl-checkbox-group": SLCheckBoxGroup,
     "sl-checkbox-group-item": SLCheckBoxGroupItem,
+    "sl-radio-group": SLRadioGroup,
+    "sl-radio-group-item": SLRadioGroupItem,
     "sl-tabs": SLTabs,
     "sl-tabs-item": SLTabsItem,
     "sl-message": SLMessage
@@ -75,6 +110,8 @@ export default {
     return {
       checkedNames: [],
       checkGroup: ["1"],
+      check: "",
+      checkRadio: "3",
       checkData: [{
         label: "广州",
         value: "0"
@@ -119,6 +156,9 @@ export default {
       console.log(group);
 
     },
+    radioChange () {
+
+    },
     handleCheck () {
 
     },
@@ -133,6 +173,11 @@ export default {
     },
     tabClick (val) {
       console.log(val);
+
+    },
+    handleRadio (val) {
+      console.log(val);
+      console.log(this.checkRadio);
 
     }
   }
